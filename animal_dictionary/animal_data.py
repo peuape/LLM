@@ -1,6 +1,3 @@
-# animal_data.py
-
-# Animal dictionary data
 animal_dictionary = [
     {
         "common_name": "Glitterfang",

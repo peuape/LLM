@@ -1,4 +1,3 @@
-# app.py
 
 import streamlit as st
 from openai import OpenAI
@@ -35,6 +34,7 @@ def process_user_message(user_input):
         return prompt_injection_detection
 
     # Step 3: Extract list of animals mentioned in the user message
+    # Step 3: Extract list of animals mentioned in the user message
     sys_message1 = f"Return the names of the animals that are in the following list delimited by {delimiter} characters \
     and are also mentioned in the user input. If no animals in the dictionary are mentioned in the user input, just return an empty list. \
     Make sure to format the answer as a python list of strings.\
@@ -42,7 +42,12 @@ def process_user_message(user_input):
     prompt1 = ChatPromptTemplate.from_messages([("system", sys_message1), ("user", user_input)])
     chain1 = prompt1 | model | parser
     animal_list_string = chain1.invoke({"animals_in_dict": animals_in_dict, "delimiter": delimiter})
+
+    animal_list_string = animal_list_string[animal_list_string.index("["):animal_list_string.index("]")+1]
+ 
     animal_list = ast.literal_eval(animal_list_string)
+
+
 
     if len(animal_list) == 0:
         return "Sorry, I cannot answer that question."
